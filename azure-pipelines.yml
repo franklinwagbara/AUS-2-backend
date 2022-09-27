@@ -33,8 +33,8 @@ steps:
     solution: 'AUS2_Database/AUS2_Database.sqlproj'
 - task: CopyFiles@2
   inputs:
-    SourceFolder: '''$(agent.builddirectory)'''
+    SourceFolder: '$(agent.builddirectory)'
     Contents: '**'
-    TargetFolder: '''$(build.artifactstagingdirectory)'''
+    TargetFolder: '$(build.artifactstagingdirectory)'
 - task: PublishBuildArtifacts@1
   
