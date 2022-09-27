@@ -11,7 +11,8 @@ namespace AUS2.Core.ViewModels.Dto.Response
         public int CategoryId { get; set; }
         public string CategoryCode { get; set; }
         public int PhaseId { get; set; }
-        public string ApplicationType = "New";
+        public LicenseTypeRequestDTO Phase { get; set; }
+        public string ApplicationType { get; set; }
         public int LgaId { get; set; }
         public string Location { get; set; }
         public List<ApplicationFormDto> Applicationforms { get; set; }

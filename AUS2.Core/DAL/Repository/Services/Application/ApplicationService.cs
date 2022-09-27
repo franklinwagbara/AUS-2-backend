@@ -267,24 +267,37 @@ namespace AUS2.Core.Repository.Services.Account
                                 UserId = user.Id,
                                 CurrentUser = user.Email,
                             };
+                            _unitOfWork.Application.Add(app);
+                            await _unitOfWork.SaveChangesAsync(user.Id);
+
+                            forms.ForEach(x => x.ApplicationId = app.Id);
 
                             _unitOfWork.ApplicationForm.AddRange(forms);
                             await _unitOfWork.SaveChangesAsync(user.Id);
 
-                            _unitOfWork.Application.Add(app);
-                            await _unitOfWork.SaveChangesAsync(user.Id);
                         }
-                       
+
                         await transaction.CommitAsync();
                         _generalLogger.LogRequest($"{"Excel upload--Both application form and facility record was successfully saved"}{"-"}{DateTime.Now}", false, directory);
-                        var application = _unitOfWork.Application.Find(x => x.Id == app.Id, "Phase.Category,Applicationforms").FirstOrDefault();
-                        var form = _mapper.Map<AppRespnseDto>(application);
+                        //var application = _unitOfWork.Application.Find(x => x.Id == app.Id, "Facility.LGA.State,Phase.Category,Applicationforms,ApplicationType")
+                        //    .Select(x => new AppRespnseDto
+                        //    {
+                        //        Id = x.Id,
+                        //        ApplicationType = x.ApplicationType.Name,
+                        //        CategoryCode = x.Phase.Category.Code,
+                        //        CategoryId = x.Phase.CategoryId,
+                        //        LgaId = x.Facility.LgaId,
+                        //        Location = x.Facility.Address,
+                        //        PhaseId = x.PhaseId,
+                        //        Applicationforms = _mapper.Map<List<ApplicationFormDto>>(x.Applicationforms)
+
+                        //    }).FirstOrDefault();
                         webApiResponse = new WebApiResponse
                         {
                             ResponseCode = AppResponseCodes.Success,
                             Message = "Successful",
                             StatusCode = ResponseCodes.Success,
-                            Data = form
+                            Data = new { appid = app.Id }
                         };
                     }
 

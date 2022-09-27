@@ -17,5 +17,6 @@ namespace AUS2.Core.ViewModels.Dto.Request
         public string? ModuleName { get; set; }
         public decimal Fee { get; set; }
         public decimal ServiceCharge { get; set; }
+        public ApplicationModulesRequestDTO Category { get; set; }
     }
 }
