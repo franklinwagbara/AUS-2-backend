@@ -16,7 +16,7 @@ namespace AUS2.Core.Helper.AutoMapperSettings
             CreateMap<ExtraPayment, ExtraPaymentRequestDto>().ReverseMap();
             CreateMap<OutOfOffice, OutOfOfficeRequestDto>().ReverseMap();
             CreateMap<ApplicationUser, UserMasterRequestDto>().ReverseMap();
-            CreateMap<Phase, LicenseTypeRequestDTO>().ReverseMap();
+            CreateMap<Phase, PhaseDto>().ReverseMap();
             CreateMap<Application, AppRequestViewModel>().ReverseMap();
             CreateMap<ApplicationForm, ApplicationFormDto>().ReverseMap();
             CreateMap<Application, AppRespnseDto>()

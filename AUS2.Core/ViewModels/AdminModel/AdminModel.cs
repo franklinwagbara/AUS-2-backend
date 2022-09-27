@@ -8,7 +8,7 @@ namespace AUS2.Core.ViewModels.AdminModel
 {
     public class PermitViewModel
     {
-        public List<LicenseTypeRequestDTO> AllPermits { get; set; }
+        public List<PhaseDto> AllPermits { get; set; }
         public List<ApplicationModuleRequestDto> AllModules { get; set; }
     }
 

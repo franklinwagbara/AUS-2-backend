@@ -77,7 +77,7 @@ namespace AUS2.AUS2.Core.DAL.Repository.Configuration
                                               Code = a.Code
                                           }).ToList();
                 var allPermits = _unitOfWork.Phase.GetAll("Category")
-                                  .Select(p => new LicenseTypeRequestDTO
+                                  .Select(p => new PhaseDto
                                   {
                                       ShortName = p.ShortName,
                                       Sort = p.Sort,
@@ -117,7 +117,7 @@ namespace AUS2.AUS2.Core.DAL.Repository.Configuration
 
         }
 
-        public async Task<WebApiResponse> Post_PermitConfiguration(LicenseTypeRequestDTO model)
+        public async Task<WebApiResponse> Post_PermitConfiguration(PhaseDto model)
         {
             var currentUser = await _userManager.FindByEmailAsync(userEmail.ToLower());
             try
@@ -140,7 +140,7 @@ namespace AUS2.AUS2.Core.DAL.Repository.Configuration
                     var applicationModule = _unitOfWork.Category.Find(x => x.Id == model.CategoryId).FirstOrDefault();
 
                     var allPermits = _unitOfWork.Phase.Find(x => x.CategoryId == model.CategoryId, "Category")
-                                      .Select(p => new LicenseTypeRequestDTO
+                                      .Select(p => new PhaseDto
                                       {
                                           ShortName = p.ShortName,
                                           Sort = p.Sort,
@@ -206,7 +206,7 @@ namespace AUS2.AUS2.Core.DAL.Repository.Configuration
                                               }).ToList();
 
                     var allPermits = _unitOfWork.Phase.GetAll("Category")
-                                      .Select(p => new LicenseTypeRequestDTO
+                                      .Select(p => new PhaseDto
                                       {
                                           ShortName = p.ShortName,
                                           Sort = p.Sort,

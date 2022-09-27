@@ -175,8 +175,6 @@ namespace AUS2.Controllers
         [Route("edit-bulk-application")]
         public async Task<IActionResult> EditBulkApplication([FromBody] AppRequestViewModel model) => Response(await _applicationServiceRepository.EditBulkApplication(model).ConfigureAwait(false));
 
-
-
         /// <summary>
         /// This endpoint displays all state list
         /// </summary>
@@ -194,8 +192,6 @@ namespace AUS2.Controllers
         [HttpGet]
         [Route("state-list")]
         public async Task<IActionResult> StateList() => Response(await _applicationServiceRepository.StateList().ConfigureAwait(false));
-
-
 
         /// <summary>
         /// This endpoint displays all LGA list
@@ -215,8 +211,6 @@ namespace AUS2.Controllers
         [Route("lga-list")]
         public async Task<IActionResult> LGAList() => Response(await _applicationServiceRepository.LGAList().ConfigureAwait(false));
 
-
-
         /// <summary>
         /// This endpoint displays all LGA list by passing Statecode parameter
         /// </summary>
@@ -235,8 +229,6 @@ namespace AUS2.Controllers
         [Route("lga-list-by-Id")]
         public async Task<IActionResult> LGAById(int id) => Response(await _applicationServiceRepository.LGAById(id).ConfigureAwait(false));
 
-
-
         /// <summary>
         /// This endpoint displays all application categories
         /// </summary>
@@ -254,9 +246,6 @@ namespace AUS2.Controllers
         [HttpGet]
         [Route("application-category")]
         public async Task<IActionResult> ApplicationCategory() => Response(await _applicationServiceRepository.ApplicationModules().ConfigureAwait(false));
-
-
-
 
         /// <summary>
         /// This endpoint displays all application modules
@@ -296,6 +285,24 @@ namespace AUS2.Controllers
         [Route("application-phases-by-categoryId")]
         public async Task<IActionResult> ApplicationPhasesByCategoryId(int moduleid) => Response(await _applicationServiceRepository.ApplicationPhasesByModuleId(moduleid).ConfigureAwait(false));
 
+        /// <summary>
+        /// This endpoint is get the full details of an application
+        /// </summary>
+        ///        
+        /// <param name="id">The id of the application to be returned</param>
+        /// <returns>Returns a success or a failure message.</returns>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <response code="200">Success response</response>
+        /// <response code="404">Not found response</response>
+        /// <response code="500">Internal server response</response>
+        [ProducesResponseType(typeof(WebApiResponse), 200)]
+        [ProducesResponseType(typeof(WebApiResponse), 404)]
+        [ProducesResponseType(typeof(WebApiResponse), 500)]
+        [HttpGet]
+        [Route("get-app-details-by-id")]
+        public async Task<IActionResult> GetApplicationDetailsById(int id) => Response(await _applicationServiceRepository.GetAppDetailsById(id).ConfigureAwait(false));
 
 
         /// <summary>
@@ -316,6 +323,5 @@ namespace AUS2.Controllers
         [HttpPut]
         [Route("process-application")]
         public async Task<IActionResult> ProcessApplication([FromBody] ProcessApplicationRequestDto model) => Response(await _applicationWorkflowService.Processapplication(model).ConfigureAwait(false));
-
     }
 }

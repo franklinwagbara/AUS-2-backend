@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AUS2.Core.ViewModels.Dto.Request
 {
-    public partial class LicenseTypeRequestDTO
+    public class PhaseDto
     {
         public string Code { get; set; }
         public string ShortName { get; set; }

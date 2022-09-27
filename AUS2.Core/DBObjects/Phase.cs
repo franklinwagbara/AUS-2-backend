@@ -19,5 +19,6 @@ namespace AUS2.Core.DBObjects
         public int LicenseSerial { get; set; }
         [ForeignKey("CategoryId")]
         public Category Category { get; set; }
+        public ICollection<PhaseDocument> PhaseDocuments { get; set; }
     }
 }
