@@ -10,7 +10,7 @@ namespace AUS2.Core.DAL.IRepository
         Task<WebApiResponse> Post_ModuleConfiguration(ApplicationModulesRequestDTO model);
         Task<WebApiResponse> Delete_ModuleConfiguration(int moduleID);
         Task<WebApiResponse> Get_PermitConfiguration();
-        Task<WebApiResponse> Post_PermitConfiguration(LicenseTypeRequestDTO model);
+        Task<WebApiResponse> Post_PermitConfiguration(PhaseDto model);
         Task<WebApiResponse> Delete_PermitConfiguration(int licenseTypeID);
         Task<WebApiResponse> Get_ApplicationConfiguration(int applicationID);
         Task<WebApiResponse> Edit_ApplicationConfiguration(AppRequestViewModel model);

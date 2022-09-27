@@ -8,7 +8,7 @@ namespace AUS2UnitTest
     public class ConfigurationTest
     {
         ApplicationModulesRequestDTO applicationModulesRequestDTO = new ApplicationModulesRequestDTO();
-        LicenseTypeRequestDTO licenseTypeRequestDTO = new LicenseTypeRequestDTO();
+        PhaseDto licenseTypeRequestDTO = new PhaseDto();
         AppRequestViewModel applicationRequestDTO = new AppRequestViewModel();
         RoleViewModel roleViewModel = new RoleViewModel();
 

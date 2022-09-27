@@ -312,6 +312,58 @@ namespace AUS2.Core.Repository.Services.Account
             }
         }
 
+        public async Task<WebApiResponse> GetAppDetailsById(int id)
+        {
+            try
+            {
+                if(id <= 0)
+                    webApiResponse = new WebApiResponse
+                    {
+                        ResponseCode = AppResponseCodes.Failed,
+                        Message = $"Application with id {id} is invalid",
+                        StatusCode = ResponseCodes.Badrequest
+                    };
+                else
+                {
+                    var application = _unitOfWork.Application
+                        .Find(x => x.Id == id, "Facility.LGA.State,Phase.Category,Applicationforms,ApplicationType")
+                        .Select(x => new AppRespnseDto
+                        {
+                            Id = x.Id,
+                            ApplicationType = x.ApplicationType.Name,
+                            CategoryCode = x.Phase.Category.Code,
+                            CategoryId = x.Phase.CategoryId,
+                            LgaId = x.Facility.LgaId,
+                            Location = x.Facility.Address,
+                            PhaseId = x.PhaseId,
+                            Applicationforms = _mapper.Map<List<ApplicationFormDto>>(x.Applicationforms)
+                        }).FirstOrDefault();
+
+                    if (application != null)
+                        webApiResponse = new WebApiResponse
+                        {
+                            ResponseCode = AppResponseCodes.Success,
+                            Message = "Successful",
+                            StatusCode = ResponseCodes.Success,
+                            Data = application
+                        };
+                    else
+                        webApiResponse = new WebApiResponse
+                        {
+                            ResponseCode = AppResponseCodes.RecordNotFound,
+                            Message = $"Application with id {id} was n0t found",
+                            StatusCode = ResponseCodes.RecordNotFound
+                        };
+                }
+            }
+            catch (Exception ex)
+            {
+                _generalLogger.LogRequest($"{"An error occured while getting application details"}{"-"}{ex}{"-"}{DateTime.Now}", false, directory);
+                webApiResponse = new WebApiResponse { ResponseCode = AppResponseCodes.InternalError, Message = ex.ToString(), StatusCode = ResponseCodes.InternalError };
+            }
+            return webApiResponse;
+        }
+
         public async Task<WebApiResponse> EditBulkApplication(AppRequestViewModel model)
         {
             try

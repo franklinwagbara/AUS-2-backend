@@ -53,7 +53,6 @@ namespace AUS2
         {
 
             services.AddCors();
-            services.AddControllersWithViews();
             //services.AddControllers();
             //services.AddDbContext<AUS2DBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AUSIIConnectionString")));
             services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AUSIIConnectionString"), m => m.MigrationsAssembly("AUS2")));
@@ -118,6 +117,7 @@ namespace AUS2
             services.AddScoped<ApplicationWorkflowService>();
             //services.AddVersionedApiExplorer();
 
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddSwaggerGen(c =>
             {
                 c.ExampleFilters();
@@ -279,7 +279,6 @@ namespace AUS2
 
         async Task CreateStates(IServiceProvider serviceProvider)
         {
-
             var _context = serviceProvider.GetRequiredService<ApplicationContext>();
             if (!_context.States.Any())
             {

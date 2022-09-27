@@ -112,7 +112,7 @@ namespace AUS2.Controllers
         [ProducesResponseType(typeof(WebApiResponse), 500)]
         [HttpPost]
         [Route("post-permit-configuration")]
-        public async Task<IActionResult> PostPermitConfiguration([FromBody] LicenseTypeRequestDTO model) => Response(await _configurationserviceRepository.Post_PermitConfiguration(model).ConfigureAwait(false));
+        public async Task<IActionResult> PostPermitConfiguration([FromBody] PhaseDto model) => Response(await _configurationserviceRepository.Post_PermitConfiguration(model).ConfigureAwait(false));
 
 
 
