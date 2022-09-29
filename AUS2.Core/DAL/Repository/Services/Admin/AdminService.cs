@@ -28,6 +28,7 @@ namespace AUS2.Core.Repository.Services.Admin
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly GeneralLogger _generalLogger;
         private readonly AppSettings _appSettings;
+        WebApiResponse webApiResponse = new WebApiResponse();
         private readonly IHttpContextAccessor _httpContextAccessor;
         GeneralClass _generalClass;
         private readonly string directory = "OutOfOffice";
@@ -356,26 +357,48 @@ namespace AUS2.Core.Repository.Services.Admin
 
         public async Task<WebApiResponse> AllApplications()
         {
-            List<Application> apps = null;
             try
             {
-                apps = _unitOfWork.Application.Find(x => x.IsLegacy.Equals("NO")).ToList();
+                var apps = _unitOfWork.Application.Find(x => x.IsLegacy.ToLower().Equals("no"), "Facility.LGA.State,Phase.Category,Applicationforms,ApplicationType")
+                        .Select(x => new AppRespnseDto
+                        {
+                            Id = x.Id,
+                            ApplicationType = x.ApplicationType.Name,
+                            CategoryCode = x.Phase.Category.Code,
+                            CategoryId = x.Phase.CategoryId,
+                            LgaId = x.Facility.LgaId,
+                            Location = x.Facility.Address,
+                            PhaseId = x.PhaseId,
+                            Applicationforms = _mapper.Map<List<ApplicationFormDto>>(x.Applicationforms)
+                        }).ToList(); ;
                 if (apps.Count > 0)
                 {
                     _generalLogger.LogRequest($"{"All Applications was successfully fetched"}{"-"}{DateTime.Now}", false, directory);
-                    return new WebApiResponse { ResponseCode = AppResponseCodes.Success, Message = "Successful", Data = apps, StatusCode = ResponseCodes.Success };
+                    webApiResponse = new WebApiResponse
+                    {
+                        ResponseCode = AppResponseCodes.Success,
+                        Message = "Successful",
+                        StatusCode = ResponseCodes.Success,
+                        Data = apps
+                    };
                 }
                 else
                 {
                     _generalLogger.LogRequest($"{"All Applications-- No Record Found"}{"-"}{DateTime.Now}", false, directory);
-                    return new WebApiResponse { ResponseCode = AppResponseCodes.RecordNotFound, Message = "No Record Found", StatusCode = ResponseCodes.RecordNotFound };
+                    webApiResponse = new WebApiResponse
+                    {
+                        ResponseCode = AppResponseCodes.RecordNotFound,
+                        Message = "All Applications-- No Record Found",
+                        StatusCode = ResponseCodes.RecordNotFound
+                    };
                 }
             }
             catch (Exception ex)
             {
-                return new WebApiResponse { ResponseCode = AppResponseCodes.InternalError, Message = "Internal server error occurred " + ex.ToString(), StatusCode = ResponseCodes.InternalError };
+                webApiResponse = new WebApiResponse { ResponseCode = AppResponseCodes.InternalError, Message = ex.ToString(), StatusCode = ResponseCodes.InternalError };
 
             }
+            return webApiResponse;
         }
 
         public async Task<WebApiResponse> ApplicationHistory(int id)
