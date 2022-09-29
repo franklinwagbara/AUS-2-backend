@@ -305,7 +305,6 @@ namespace AUS2.Controllers
         [Route("get-app-details-by-id")]
         public async Task<IActionResult> GetApplicationDetailsById(int id) => Response(await _applicationServiceRepository.GetAppDetailsById(id).ConfigureAwait(false));
 
-
         /// <summary>
         /// This endpoint is majorly used to pass or reject application to the next processing staff
         /// </summary>
