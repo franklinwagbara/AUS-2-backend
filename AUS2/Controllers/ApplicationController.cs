@@ -293,6 +293,7 @@ namespace AUS2.Controllers
         /// <returns>Returns a success or a failure message.</returns>
         /// <remarks>
         /// 
+        ///
         /// </remarks>
         /// <response code="200">Success response</response>
         /// <response code="404">Not found response</response>
@@ -303,7 +304,6 @@ namespace AUS2.Controllers
         [HttpGet]
         [Route("get-app-details-by-id")]
         public async Task<IActionResult> GetApplicationDetailsById(int id) => Response(await _applicationServiceRepository.GetAppDetailsById(id).ConfigureAwait(false));
-
 
         /// <summary>
         /// This endpoint is majorly used to pass or reject application to the next processing staff

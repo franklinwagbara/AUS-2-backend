@@ -685,5 +685,10 @@ namespace AUS2.Core.Repository.Services.Account
             }
             return appForm;
         }
+
+        private void AppTest()
+        {
+
+        }
     }
 }
