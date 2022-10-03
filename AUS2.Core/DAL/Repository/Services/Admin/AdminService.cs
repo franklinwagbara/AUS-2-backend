@@ -359,7 +359,7 @@ namespace AUS2.Core.Repository.Services.Admin
         {
             try
             {
-                var apps = _unitOfWork.Application.Find(x => x.IsLegacy.ToLower().Equals("no"), "Facility.LGA.State,Phase.Category,Applicationforms,ApplicationType")
+                var apps = _unitOfWork.Application.Find(x => x.IsLegacy.ToLower().Equals("no"), "Facility.LGA.State,Phase.Category,Applicationforms,ApplicationType,User.Company")
                         .Select(x => new AppRespnseDto
                         {
                             Id = x.Id,

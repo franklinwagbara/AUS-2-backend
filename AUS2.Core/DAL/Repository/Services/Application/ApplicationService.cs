@@ -334,6 +334,7 @@ namespace AUS2.Core.Repository.Services.Account
                             CategoryCode = x.Phase.Category.Code,
                             CategoryId = x.Phase.CategoryId,
                             LgaId = x.Facility.LgaId,
+                            StateId = x.Facility.LGA.StateId,
                             Location = x.Facility.Address,
                             PhaseId = x.PhaseId,
                             Applicationforms = _mapper.Map<List<ApplicationFormDto>>(x.Applicationforms)
@@ -354,6 +355,7 @@ namespace AUS2.Core.Repository.Services.Account
                             Message = $"Application with id {id} was n0t found",
                             StatusCode = ResponseCodes.RecordNotFound
                         };
+                    //new changes
                 }
             }
             catch (Exception ex)

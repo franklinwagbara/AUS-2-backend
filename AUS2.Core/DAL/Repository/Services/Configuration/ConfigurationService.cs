@@ -79,6 +79,7 @@ namespace AUS2.AUS2.Core.DAL.Repository.Configuration
                 var allPermits = _unitOfWork.Phase.GetAll("Category")
                                   .Select(p => new PhaseDto
                                   {
+                                      Id = p.Id,
                                       ShortName = p.ShortName,
                                       Sort = p.Sort,
                                       CategoryId = p.CategoryId,

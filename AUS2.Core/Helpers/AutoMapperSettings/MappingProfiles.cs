@@ -21,6 +21,7 @@ namespace AUS2.Core.Helper.AutoMapperSettings
             CreateMap<ApplicationForm, ApplicationFormDto>().ReverseMap();
             CreateMap<Application, AppRespnseDto>()
                 .ForMember(x => x.CategoryCode, y => y.MapFrom(z => z.Phase.Category.Code))
+                .ForMember(x => x.CompanyName, y => y.MapFrom(z => z.User.Company.Name))
                 .ReverseMap();
             CreateMap<Category, ApplicationModulesRequestDTO>().ReverseMap();
             CreateMap<State, StateDto>().ReverseMap();
