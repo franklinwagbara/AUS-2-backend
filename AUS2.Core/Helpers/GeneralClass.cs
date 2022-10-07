@@ -16,7 +16,7 @@ namespace AUS2.Core.Helper
 {
     public class GeneralClass : Controller
     {
-        IHttpContextAccessor _httpContextAccessor;
+       IHttpContextAccessor _httpContextAccessor;
         private readonly AppSettings _appSettings;
         private Object thisLock = new Object();
         public static string Superadmin = "SUPERADMIN";
